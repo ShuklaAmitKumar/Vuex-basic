@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 
 export const store = new Vuex.Store({
+    strict: true, // use strict true so that you can't use mutations directly
     state: {
         products: [
             {name:'Laptop', price:300},
@@ -24,6 +25,21 @@ export const store = new Vuex.Store({
                 }
             });
             return saleProducts;
+        }
+    },
+    mutations:{
+        reducePrice:(state,payload) =>{
+            state.products.forEach(product =>{
+                product.price -= payload;
+            })
+        }
+    },
+    actions:{
+        reducePrice: (context,payload) => {
+            setTimeout(function(){
+                // calling mutations
+                context.commit('reducePrice',payload);
+            },2000);
         }
     }
 })

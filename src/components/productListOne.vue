@@ -7,18 +7,52 @@
         <span class="price">${{product.price}}</span>
       </li>
     </ul>
+    <button v-on:click="reducePrice(4)">Reduce Price</button>
   </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex';
+import {mapGetters} from 'vuex';
+
 export default {
   computed:{
     products(){
       return this.$store.state.products;
     },
-    saleProducts(){
-      return this.$store.getters.saleProducts
-    }
+    // use getters
+    // saleProducts(){
+    //   return this.$store.getters.saleProducts
+    // },
+    // for multiple getters 
+    ...mapGetters([
+      'saleProducts'
+    ])
+  },
+  // use mutations
+  methods:{
+    
+      // reducePrice:function(amt){
+      //   /* // use mutations directly
+      //   this.$store.state.products.forEach(product => {
+      //     product.price -= 1;
+      //   });
+      //   */
+      //  /*
+      //   // use commit to call mutations
+      //   // try not to use mutations with out actions 
+      //   // actions are used will aschro process 
+      //   this.$store.commit('reducePrice');
+      //   */
+       
+      //  // for calling actions use dispatch
+      //  // passing parameters using mutations
+      //  this.$store.dispatch('reducePrice',amt);
+    
+      // }
+      ...mapActions([
+        'reducePrice'
+      ])
   }
 }
 </script>
